@@ -14,9 +14,9 @@ namespace SliceAndStack.Slicing
         [Range(0f, 1f)] public float greatThreshold = 0.7f;
 
         [Header("Slice Force")]
-        public float sliceSeparationForce = 2.0f;
-        public float sliceUpwardForce = 1.5f;
-        public float sliceTorque = 50f;
+        public float sliceSeparationForce = 0.5f;
+        public float sliceUpwardForce = 0.5f;
+        public float sliceTorque = 15f;
 
         [Header("Sliced Half Settings")]
         public float halfGravityDelay = 0.15f;

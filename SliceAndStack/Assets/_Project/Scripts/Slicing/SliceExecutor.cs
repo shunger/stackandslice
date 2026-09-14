@@ -25,7 +25,7 @@ namespace SliceAndStack.Slicing
 
             var target = result.Target;
             var data = target.Data;
-            var position = target.transform.position;
+            Vector2 position = target.transform.position;
 
             target.MarkSliced();
 
@@ -34,12 +34,12 @@ namespace SliceAndStack.Slicing
 
             // Create left half
             var leftHalf = pool.GetSlicedHalf();
-            SetupHalf(leftHalf, data.leftHalfSprite, position + (Vector2)data.leftHalfOffset,
+            SetupHalf(leftHalf, data.leftHalfSprite, position + data.leftHalfOffset,
                 -_config.sliceSeparationForce, _config.sliceUpwardForce, -_config.sliceTorque, data.mass);
 
             // Create right half
             var rightHalf = pool.GetSlicedHalf();
-            SetupHalf(rightHalf, data.rightHalfSprite, position + (Vector2)data.rightHalfOffset,
+            SetupHalf(rightHalf, data.rightHalfSprite, position + data.rightHalfOffset,
                 _config.sliceSeparationForce, _config.sliceUpwardForce, _config.sliceTorque, data.mass);
 
             // Publish slice event
@@ -83,8 +83,14 @@ namespace SliceAndStack.Slicing
             rb.AddForce(new Vector2(horizontalForce, upwardForce), ForceMode2D.Impulse);
             rb.AddTorque(torque);
 
-            var col = half.GetComponent<Collider2D>();
-            if (col != null) col.enabled = true;
+            // Size collider to match sprite
+            var boxCol = half.GetComponent<BoxCollider2D>();
+            if (boxCol == null) boxCol = half.AddComponent<BoxCollider2D>();
+            boxCol.enabled = true;
+            if (sprite != null)
+                boxCol.size = sprite.bounds.size;
+            else
+                boxCol.size = new Vector2(0.5f, 1f);
 
             // Add stacked piece component for tower interaction
             var stackedPiece = half.GetComponent<Stacking.StackedPiece>();

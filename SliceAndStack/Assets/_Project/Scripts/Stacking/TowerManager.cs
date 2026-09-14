@@ -26,9 +26,30 @@ namespace SliceAndStack.Stacking
 
         private void Start()
         {
+            // Auto-find tower base if not assigned in Inspector
+            if (_towerBase == null)
+            {
+                var tb = FindFirstObjectByType<TowerBase>();
+                if (tb != null)
+                    _towerBase = tb.transform;
+            }
+
+            // Create default config if not assigned in Inspector
+            if (_config == null)
+            {
+                Debug.LogWarning("[TowerManager] No StackingConfig assigned. Creating default config. " +
+                    "Assign a StackingConfig asset in the Inspector to customize values.");
+                _config = ScriptableObject.CreateInstance<StackingConfig>();
+            }
+
             if (_towerBase != null)
             {
+                _stabilityMonitor.SetConfig(_config);
                 _stabilityMonitor.Initialize(_stackedPieces, _towerBase.position.x);
+            }
+            else
+            {
+                Debug.LogWarning("[TowerManager] No TowerBase found in scene.");
             }
         }
 

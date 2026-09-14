@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using SliceAndStack.Core;
+using SliceAndStack.Utils;
 
 namespace SliceAndStack.UI
 {
@@ -111,13 +112,11 @@ namespace SliceAndStack.UI
             int score = GameManager.Instance != null ? GameManager.Instance.CurrentScore : 0;
             string message = $"I scored {score:N0} in Slice & Stack! Can you beat my tower?";
 
-#if UNITY_IOS || UNITY_ANDROID
-            new NativeShare()
-                .SetText(message)
-                .Share();
-#else
+            // NativeShare plugin required for native sharing.
+            // Install from: https://github.com/yasirkula/UnityNativeShare
+            // Then uncomment:
+            // new NativeShare().SetText(message).Share();
             Debug.Log($"[Share] {message}");
-#endif
         }
     }
 }

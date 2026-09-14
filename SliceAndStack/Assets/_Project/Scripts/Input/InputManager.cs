@@ -17,10 +17,6 @@ namespace SliceAndStack.Input
             _swipeDetector = new SwipeDetector();
 
             _tapDetector.OnTap += HandleTap;
-        }
-
-        private void Start()
-        {
             EventBus.Subscribe<GameStateChangedEvent>(OnGameStateChanged);
         }
 
@@ -38,6 +34,9 @@ namespace SliceAndStack.Input
 
         private void Update()
         {
+            if (GameManager.Instance != null && GameManager.Instance.CurrentState == Core.GameState.Playing)
+                _isActive = true;
+
             if (!_isActive) return;
 
             // Touch input

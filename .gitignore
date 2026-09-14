@@ -57,3 +57,12 @@ crashlytics-build.properties
 *.aab
 *.unitypackage
 *.app
+
+# Unity project lives in SliceAndStack/
+SliceAndStack/[Ll]ibrary/
+SliceAndStack/[Tt]emp/
+SliceAndStack/[Oo]bj/
+SliceAndStack/[Bb]uild/
+SliceAndStack/[Bb]uilds/
+SliceAndStack/[Ll]ogs/
+SliceAndStack/[Uu]ser[Ss]ettings/

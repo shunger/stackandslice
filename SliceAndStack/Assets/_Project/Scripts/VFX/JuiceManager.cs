@@ -99,9 +99,9 @@ namespace SliceAndStack.VFX
             var t = evt.Piece.transform;
             // DOTween: t.DOPunchScale(new Vector3(0.1f, -squashAmount, 0), squashDuration, 1, 0);
 
-            // Screen shake proportional to impact
-            if (ServiceLocator.TryGet<ScreenShaker>(out var shaker))
-                shaker.ShakeByImpact(evt.ImpactForce);
+            // Screen shake disabled during development - tune later
+            // if (ServiceLocator.TryGet<ScreenShaker>(out var shaker))
+            //     shaker.ShakeByImpact(evt.ImpactForce);
 
             // Landing particles
             if (_landingParticlesPrefab != null)
@@ -131,9 +131,9 @@ namespace SliceAndStack.VFX
             if (ServiceLocator.TryGet<SlowMotionController>(out var slowMo))
                 slowMo.TriggerCollapseSlowMo();
 
-            // Big screen shake
-            if (ServiceLocator.TryGet<ScreenShaker>(out var shaker))
-                shaker.Shake(0.2f, 1.0f);
+            // Big screen shake disabled during development
+            // if (ServiceLocator.TryGet<ScreenShaker>(out var shaker))
+            //     shaker.Shake(0.2f, 1.0f);
 
             // Collapse particles
             if (_collapseParticlesPrefab != null)

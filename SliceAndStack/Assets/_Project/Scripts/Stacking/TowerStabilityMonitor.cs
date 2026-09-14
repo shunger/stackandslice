@@ -19,6 +19,11 @@ namespace SliceAndStack.Stacking
         private float _smoothedStability = 1f;
         private float _stabilityVelocity;
 
+        public void SetConfig(StackingConfig config)
+        {
+            _config = config;
+        }
+
         public void Initialize(List<StackedPiece> pieces, float baseCenterX)
         {
             _pieces = pieces;
@@ -32,7 +37,7 @@ namespace SliceAndStack.Stacking
 
         private void FixedUpdate()
         {
-            if (_pieces == null || _pieces.Count == 0) return;
+            if (_config == null || _pieces == null || _pieces.Count == 0) return;
 
             float rawStability = CalculateStability();
             _smoothedStability = Mathf.SmoothDamp(_smoothedStability, rawStability,
@@ -40,11 +45,14 @@ namespace SliceAndStack.Stacking
             CurrentStability = Mathf.Clamp01(_smoothedStability);
 
             UpdateStabilityLevel();
-            CheckForCollapse();
+            // Collapse detection disabled during development
+            // CheckForCollapse();
         }
 
         private float CalculateStability()
         {
+            if (_config == null) return 1f;
+
             // Gather valid rigidbodies
             var bodies = new List<Rigidbody2D>();
             float maxAngular = 0f;
@@ -111,6 +119,7 @@ namespace SliceAndStack.Stacking
             {
                 if (piece != null && piece.transform.position.y < _config.fallOffY)
                 {
+                    Debug.Log($"[TowerStability] Collapse: piece at Y={piece.transform.position.y:F2} below fallOffY={_config.fallOffY}");
                     TriggerCollapse();
                     return;
                 }
@@ -122,6 +131,7 @@ namespace SliceAndStack.Stacking
                 _collapseTimer += Time.fixedDeltaTime;
                 if (_collapseTimer >= _config.collapseConfirmTime)
                 {
+                    Debug.Log($"[TowerStability] Collapse: stability at 0 for {_collapseTimer:F2}s");
                     TriggerCollapse();
                 }
             }

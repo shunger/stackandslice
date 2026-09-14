@@ -9,6 +9,8 @@ namespace SliceAndStack.VFX
         private Vector3 _originalPosition;
         private Coroutine _shakeCoroutine;
         private Camera _camera;
+        private float _lastShakeTime;
+        private const float SHAKE_COOLDOWN = 0.15f;
 
         private void Awake()
         {
@@ -25,13 +27,17 @@ namespace SliceAndStack.VFX
             if (_shakeCoroutine != null)
                 StopCoroutine(_shakeCoroutine);
 
+            _lastShakeTime = Time.unscaledTime;
             _shakeCoroutine = StartCoroutine(ShakeRoutine(intensity, duration));
         }
 
         public void ShakeByImpact(float impactForce)
         {
-            float intensity = Mathf.Clamp(impactForce * 0.02f, 0.01f, 0.15f);
-            float duration = Mathf.Clamp(impactForce * 0.03f, 0.05f, 0.3f);
+            // Skip if another impact shake happened very recently
+            if (Time.unscaledTime - _lastShakeTime < SHAKE_COOLDOWN) return;
+
+            float intensity = Mathf.Clamp(impactForce * 0.005f, 0.005f, 0.04f);
+            float duration = Mathf.Clamp(impactForce * 0.01f, 0.03f, 0.15f);
             Shake(intensity, duration);
         }
 

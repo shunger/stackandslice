@@ -23,10 +23,6 @@ namespace SliceAndStack.Spawning
         private void Awake()
         {
             ServiceLocator.Register(this);
-        }
-
-        private void Start()
-        {
             _mainCamera = Camera.main;
             UpdateSliceZoneBounds(Utils.Constants.SLICE_ZONE_DEFAULT_SIZE);
             EventBus.Subscribe<GameStateChangedEvent>(OnGameStateChanged);
@@ -65,6 +61,9 @@ namespace SliceAndStack.Spawning
 
         private void Update()
         {
+            if (GameManager.Instance != null && GameManager.Instance.CurrentState == GameState.Playing)
+                _isSpawning = true;
+
             if (!_isSpawning) return;
 
             _spawnTimer += Time.deltaTime;
@@ -77,10 +76,18 @@ namespace SliceAndStack.Spawning
 
         private void SpawnObject()
         {
-            if (_sliceableDataList == null || _sliceableDataList.Count == 0) return;
+            if (_sliceableDataList == null || _sliceableDataList.Count == 0)
+            {
+                Debug.LogWarning("[SpawnManager] No sliceable data in list");
+                return;
+            }
 
             var pool = ServiceLocator.Get<ObjectPool>();
-            if (pool == null) return;
+            if (pool == null)
+            {
+                Debug.LogWarning("[SpawnManager] ObjectPool not found");
+                return;
+            }
 
             var data = _sliceableDataList[Random.Range(0, _sliceableDataList.Count)];
 

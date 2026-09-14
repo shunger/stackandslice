@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a637fe5df397f42118e81eeeefaa75d3, type: 3}
+  m_Name: ScoreConfig
+  m_EditorClassIdentifier: SliceAndStack::SliceAndStack.Scoring.ScoreConfig
+  perfectMultiplier: 3
+  greatMultiplier: 2
+  goodMultiplier: 1
+  comboMultiplierPerStep: 0.1
+  maxComboMultiplier: 10
+  heightMultiplierBase: 1
+  heightMultiplierPerMeter: 0.05
+  onFireThreshold: 5
+  rainbowThreshold: 10
+  streakBonusPoints: 50
+  streakBonusPerLevel: 25

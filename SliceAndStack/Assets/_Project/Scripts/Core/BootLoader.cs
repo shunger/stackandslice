@@ -5,7 +5,7 @@ namespace SliceAndStack.Core
 {
     public class BootLoader : MonoBehaviour
     {
-        [SerializeField] private string _nextScene = Constants.SCENE_GAME;
+        [SerializeField] private string _nextScene = Utils.Constants.SCENE_GAME;
 
         private void Start()
         {

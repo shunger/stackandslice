@@ -13,10 +13,6 @@ namespace SliceAndStack.Slicing
         private void Awake()
         {
             ServiceLocator.Register(this);
-        }
-
-        private void Start()
-        {
             _mainCamera = Camera.main;
             EventBus.Subscribe<GameStateChangedEvent>(OnGameStateChanged);
         }
@@ -36,6 +32,9 @@ namespace SliceAndStack.Slicing
 
         public SliceResult TrySlice(Vector2 screenPosition)
         {
+            if (GameManager.Instance != null && GameManager.Instance.CurrentState == GameState.Playing)
+                _isActive = true;
+
             if (!_isActive) return SliceResult.None;
 
             Vector2 worldPos = _mainCamera.ScreenToWorldPoint(screenPosition);

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63c5e817a48946d682784f9a06bf4da, type: 3}
+  m_Name: AdConfig
+  m_EditorClassIdentifier: SliceAndStack::SliceAndStack.Ads.AdConfig
+  testInterstitialId: ca-app-pub-3940256099942544/1033173712
+  testRewardedId: ca-app-pub-3940256099942544/5224354917
+  productionInterstitialIdAndroid: 
+  productionRewardedIdAndroid: 
+  productionInterstitialIdiOS: 
+  productionRewardedIdiOS: 
+  interstitialGameInterval: 3
+  minSessionDurationForInterstitial: 30
+  minTimeBetweenInterstitials: 180
+  maxRevivesPerGame: 1
+  useTestAds: 1
